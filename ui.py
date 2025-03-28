@@ -32,21 +32,21 @@ def setup_page():
 def display_header():
 
     try:
-        with open("euron.jpg", "rb") as img_file:
+        with open("icon.webp", "rb") as img_file:
             logo_base64 = base64.b64encode(img_file.read()).decode()
-            logo_html = f'<img src="data:image/jpeg;base64,{logo_base64}" alt="Euron Logo" class="logo-image" style="max-height: 100px;">'
+            logo_html = f'<img src="data:image/jpeg;base64,{logo_base64}" alt="sumama Logo" class="logo-image" style="max-height: 100px;">'
     except:
       
         logo_html = '<div style="font-size: 50px; text-align: center;">🚀</div>'
 
     st.markdown(f"""
     <div class="main-header">
-        <div class="header-container">
-            <div class="logo-container" style="text-align: center; margin-bottom: 20px;">
+        <div class="header-container" style="padding: 20px; margin-bottom: 10px;">
+            <div class="logo-container" style="text-align: center; margin-bottom: 5px;">
                 {logo_html}
             </div>
-            <div class="title-container" style="text-align: center;">
-                <h1>Euron Recruitment Agent</h1>
+            <div class="title-container" style="text-align: center; ">
+                <h1>Resume Analysis Agent</h1>
                 <p>Smart Resume Analysis & Interview Preparation System</p>
             </div>
         </div>
@@ -54,20 +54,17 @@ def display_header():
     """, unsafe_allow_html=True)
 
 
-def apply_custom_css(accent_color="#d32f2f"):
+def apply_custom_css(accent_color="#D32F2F"):
     st.markdown(f"""
     <style>
-        /* Main container */
-        .main {{
-            background-color: #000000 !important;
-            color: white !important;
-        }}
-
+        
         /* Active tabs and highlights based on accent color */
         .stTabs [aria-selected=\"true\"] {{
-            background-color: #000000 !important;
-            border-bottom: 3px solid {accent_color} !important;
+            background-color: transparent  !important;
+            padding: 4px 5px !important;
+            border: 2px solid {accent_color} !important;
             color: {accent_color} !important;
+            border-radius: 5px 5px!important;
         }}
 
         /* Buttons styled with accent color */
@@ -90,13 +87,6 @@ def apply_custom_css(accent_color="#d32f2f"):
         .stTextInput input, .stTextArea textarea, .stSelectbox div {{
             background-color: #222222 !important;
             color: white !important;
-        }}
-
-        /* Horizontal rule black and accent color gradient */
-        hr {{
-            border: none;
-            height: 2px;
-            background-image: linear-gradient(to right, black 50%, {accent_color} 50%);
         }}
 
         /* General markdown text */
@@ -222,8 +212,6 @@ def setup_sidebar():
         st.subheader("API Keys")
         openai_api_key = st.text_input("OpenAI API Key", type="password")
         
-        st.markdown("---")
-        
         
         st.subheader("Theme")
         theme_color = st.color_picker("Accent Color", "#d32f2f")
@@ -236,15 +224,6 @@ def setup_sidebar():
         </style>
         """, unsafe_allow_html=True)
         
-        st.markdown("---")
-        
-        st.markdown("""
-        <div style="text-align: center; margin-top: 20px;">
-            <p>🚀 Euron Recruitment Agent</p>
-            <p style="font-size: 0.8rem; color: #666;">v1.0.0</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
         return {
             "openai_api_key": openai_api_key,
             "theme_color": theme_color
@@ -252,7 +231,6 @@ def setup_sidebar():
 
 
 def role_selection_section(role_requirements):
-    st.markdown('<div class="card">', unsafe_allow_html=True)
     
     col1, col2 = st.columns([2, 1])
     
@@ -476,11 +454,10 @@ Status: {"✅ Shortlisted" if selected else "❌ Not Selected"}
         report_content += "\n---\nAnalysis provided by Euron Recruitment Agent"
         
         report_b64 = base64.b64encode(report_content.encode()).decode()
-        href = f'<a class="download-btn" href="data:text/plain;base64,{report_b64}" download="euron_resume_analysis.txt">📊 Download Analysis Report</a>'
+        href = f'<a class="download-btn" href="data:text/plain;base64,{report_b64}" download="sumama_resume_analysis.txt">📊 Download Analysis Report</a>'
         st.markdown(href, unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
-
 
 def resume_qa_section(has_resume, ask_question_func=None):
     if not has_resume:
@@ -576,7 +553,7 @@ def interview_questions_section(has_resume, generate_questions_func=None):
                     st.markdown("---")
                     questions_bytes = download_content.encode()
                     b64 = base64.b64encode(questions_bytes).decode()
-                    href = f'<a class="download-btn" href="data:text/markdown;base64,{b64}" download="euron_interview_questions.md">📝 Download All Questions</a>'
+                    href = f'<a class="download-btn" href="data:text/markdown;base64,{b64}" download="sumama_interview_questions.md">📝 Download All Questions</a>'
                     st.markdown(href, unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
@@ -648,7 +625,7 @@ def resume_improvement_section(has_resume, improve_resume_func=None):
                 st.markdown("---")
                 report_bytes = download_content.encode()
                 b64 = base64.b64encode(report_bytes).decode()
-                href = f'<a class="download-btn" href="data:text/markdown;base64,{b64}" download="euron_resume_improvements.md">📝 Download All Suggestions</a>'
+                href = f'<a class="download-btn" href="data:text/markdown;base64,{b64}" download="sumama_resume_improvements.md">📝 Download All Suggestions</a>'
                 st.markdown(href, unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
@@ -678,7 +655,7 @@ def improved_resume_section(has_resume, get_improved_resume_func=None):
                     # Text file download
                     resume_bytes = improved_resume.encode()
                     b64 = base64.b64encode(resume_bytes).decode()
-                    href = f'<a class="download-btn" href="data:file/txt;base64,{b64}" download="euron_improved_resume.txt">📄 Download as TXT</a>'
+                    href = f'<a class="download-btn" href="data:file/txt;base64,{b64}" download="sumama_improved_resume.txt">📄 Download as TXT</a>'
                     st.markdown(href, unsafe_allow_html=True)
                 
                 with col2:
@@ -692,7 +669,7 @@ Resume enhanced by Euron Recruitment Agent
 """
                     md_bytes = md_content.encode()
                     md_b64 = base64.b64encode(md_bytes).decode()
-                    md_href = f'<a class="download-btn" href="data:text/markdown;base64,{md_b64}" download="euron_improved_resume.md">📝 Download as Markdown</a>'
+                    md_href = f'<a class="download-btn" href="data:text/markdown;base64,{md_b64}" download="sumama_improved_resume.md">📝 Download as Markdown</a>'
                     st.markdown(md_href, unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
