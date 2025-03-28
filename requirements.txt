@@ -1,0 +1,11 @@
+streamlit==1.31.0
+langchain
+langchain-community
+langchain_huggingface
+sentence_transformers
+langchain_groq 
+pypdf2==3.0.1
+faiss-cpu==1.7.4
+pandas
+python-dotenv==1.0.0
+matplotlib==3.8.2
